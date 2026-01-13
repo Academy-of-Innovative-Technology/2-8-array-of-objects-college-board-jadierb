@@ -43,6 +43,7 @@ Example properties may include:
 
 ---
 
+
 ### 2️⃣ Display the Data
 
 - Use JavaScript to **insert object data into the HTML template**
