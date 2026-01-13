@@ -45,3 +45,47 @@ const colleges = [
     image: "https://www.tonygamino.com/images/portfolio/qcc-logo-old.jpg"
   }
 ];
+
+const listGroup = document.querySelector('.list-group');
+if (listGroup) {
+  
+  listGroup.innerHTML = '';
+
+  colleges.forEach(college => {
+    const cardHTML = `
+      <div class="list-group-item college-card">
+        <div class="row">
+          <div class="col-2">
+            <img src="" alt="${college.name} Logo" class="college-image" id="img-${college.rank}">
+          </div>
+          <div class="col-7 college-info">
+            <h5>${college.rank}. ${college.name}</h5>
+            <p><strong>Program:</strong> ${college.program || ''}</p>
+            <p><strong>Address:</strong> ${college.address}</p>
+            <p><strong>Website:</strong> <a href="#" target="_blank" id="site-${college.rank}">${college.website}</a></p>
+            <p><strong>Google Maps:</strong> <a href="#" target="_blank" id="maps-${college.rank}">View on Google Maps</a></p>
+          </div>
+        </div>
+      </div>`;
+
+  
+    listGroup.insertAdjacentHTML('beforeend', cardHTML);
+
+   
+    const imgEl = document.querySelector(`#img-${college.rank}`);
+    if (imgEl) imgEl.src = college.image || 'https://via.placeholder.com/100';
+
+    const siteEl = document.querySelector(`#site-${college.rank}`);
+    if (siteEl) {
+      siteEl.href = college.website;
+      try {
+        siteEl.textContent = new URL(college.website).host; // show friendly host text
+      } catch (e) {
+        siteEl.textContent = college.website;
+      }
+    }
+
+    const mapsEl = document.querySelector(`#maps-${college.rank}`);
+    if (mapsEl) mapsEl.href = college.maps || '#';
+  });
+}
